@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useState, useEffect, useMemo } from "react";
 import { Header } from "./components/Header/Header";
 import { ProductsList } from "./components/ProductsList/ProductsList";
@@ -8,12 +8,12 @@ import { TotalProductsCounter } from "./components/TotalProductsCounter/TotalPro
 
 const PRODUCTS_PER_PAGE = 10;
 const App = () => {
-
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterQuery, setFilterQuery] = useState("");
 
-  const filteredProducts = useMemo(() =>
+  const filteredProducts = useMemo(
+    () =>
       products.filter(({ productName }) =>
         productName.toLowerCase().includes(filterQuery.toLowerCase())
       ),
@@ -25,7 +25,8 @@ const App = () => {
       const res = await fetch(
         "https://raw.githubusercontent.com/traa/apiplp/master/db.json"
       );
-      res.json().then(data => setProducts(data.pageItems));
+      const { pageItems } = await res.json();
+      setProducts(pageItems);
     };
 
     fetchProducts();
@@ -43,7 +44,7 @@ const App = () => {
     setCurrentPage(value);
     window.scrollTo({
       top: 0,
-      behavior: "instant",
+      behavior: "instant"
     });
   };
 
@@ -52,7 +53,7 @@ const App = () => {
     setCurrentPage(1);
   };
 
-  const handleSubmitForm = (event) => {
+  const handleSubmitForm = event => {
     event.preventDefault();
   };
 
